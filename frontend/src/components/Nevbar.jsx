@@ -34,7 +34,7 @@ const Nevbar = () => {
           <li className='py-1'>CONTACT</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
-         <NavLink to='https://appointment-admin-j69o.onrender.com/'>
+        <NavLink to='https://appointment-admin-j69o.onrender.com/'>
           <li className='py-1 px-5 border border-blue-900 active:bg-blue-600 rounded-full'>ADMIN</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
@@ -68,6 +68,7 @@ const Nevbar = () => {
             <NavLink onClick={() => setshowMenu(false)} to='/doctors'><p className='px-4 py-2 rounded inline-block'>ALL DOCTORS</p></NavLink>
             <NavLink onClick={() => setshowMenu(false)} to='/about'><p className='px-4 py-2 rounded inline-block'>ABOUT</p></NavLink>
             <NavLink onClick={() => setshowMenu(false)} to='/contact'><p className='px-4 py-2 rounded inline-block'>CONTACT</p></NavLink>
+            <NavLink onClick={() => setshowMenu(false)} to='https://appointment-admin-j69o.onrender.com/'><p className='px-5 py-1 border border-blue-900 active:bg-blue-600 rounded-full inline-block'>ADMIN</p></NavLink>
           </ul>
         </div>
       </div>

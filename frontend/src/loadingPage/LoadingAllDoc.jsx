@@ -14,7 +14,7 @@ function LoadingAllDoc({ count = 12 }) {
         >
           {/* image skeleton */}
           <div className="bg-blue-50 h-40 sm:h-44 w-full flex items-center justify-center">
-            <div className="w-24 h-24 rounded-md bg-gray-200" />
+            <div className="w-40 h-40 rounded-md bg-gray-200" />
           </div>
 
           <div className="p-4">

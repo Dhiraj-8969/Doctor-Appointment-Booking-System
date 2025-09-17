@@ -4,7 +4,7 @@ import React from 'react';
 // Tailwind CSS React component that mirrors the appointments table layout
 // Usage: <AppointmentsSkeleton count={6} />
 
-export default function AppointmentLoading({ count = 6 }) {
+export default function AppointmentLoading({ count = 10 }) {
   const items = Array.from({ length: count });
 
   return (

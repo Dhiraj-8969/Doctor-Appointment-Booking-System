@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets_admin/assets'
-import AppointmentsLoading from '../../../../frontend/src/loadingPage/AppointmentsLoading'
+import AppointmentsLoading from '../../loadingPage/AppointmentLoading'
 
 const AllApointment = () => {
 

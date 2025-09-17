@@ -3,11 +3,13 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import AppointmentsLoading from '../loadingPage/AppointmentsLoading'
 
 
 const MyAppointments = () => {
   const { backendUrl, token ,getDoctorsData} = useContext(AppContext)
   const [appointments, setAppointments] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const months=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov",'Dec']
 
@@ -21,11 +23,14 @@ const MyAppointments = () => {
       const { data } = await axios.get(`${backendUrl}/api/user/appointments`, { headers: { token } });
       if (data.success) {
         setAppointments(data.appointments.reverse());
+        setLoading(false)
       } else {
         toast.error(data.message);
+        setLoading(false)
       }
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
       console.error(error);
     }
   }
@@ -96,6 +101,9 @@ const MyAppointments = () => {
       getUserAppointments()
     }
   }, [token])
+  if(loading) return(
+    <AppointmentsLoading/>
+  )
   return (
     <div>
       <p className='pb-3 mt-12 font-medium text-zinc-700 border-b'>My appointments</p>

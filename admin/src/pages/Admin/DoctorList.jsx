@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
+import LoadingAllDoc from '../../loadingPage/LoadingAllDoc'
 
 const DoctorList = () => {
 
-  const {doctors, aToken, getAllDoctors, changeAvailablity} = useContext(AdminContext)
+  const {doctors, aToken, getAllDoctors, changeAvailablity,loadingDoc} = useContext(AdminContext)
 
   useEffect(()=>{
     if(aToken){
@@ -11,6 +12,10 @@ const DoctorList = () => {
     }
 
   },[aToken])
+
+  if(loadingDoc) return (
+    <LoadingAllDoc/>
+  )
 
   return (
     <div className='m-5 max-h-[90vh] overflow-y-scroll'>

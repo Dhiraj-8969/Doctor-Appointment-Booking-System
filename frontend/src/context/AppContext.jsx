@@ -13,6 +13,8 @@ const AppContextProvider = ({ children }) => {
   const currencySymbol = "₹";
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [profileloading, setProfileLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false);
   const [userData, setUserData] = useState(false);
 
@@ -21,11 +23,14 @@ const AppContextProvider = ({ children }) => {
       const { data } = await axios.get(`${backendUrl}/api/doctor/list`);
       if (data.success) {
         setDoctors(data.doctors);
+        setLoading(false)
       } else {
         toast.error(data.message || "Failed to fetch doctors.");
+        setLoading(false)
       }
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
+      setLoading(false)
       console.error("Error fetching doctors:", error);
     }
   };
@@ -35,16 +40,19 @@ const AppContextProvider = ({ children }) => {
       const { data } = await axios.get(`${backendUrl}/api/user/get-profile`, { headers: { token } });
       if (data.success) {
         setUserData(data.userData);
+        setProfileLoading(false)
       } else {
         toast.error(data.message);
+        setProfileLoading(false)
       }
     } catch (error) {
       toast.error(error.message);
+      setProfileLoading(false)
       console.error(error);
     }
   }
 
-  const value = { doctors, currencySymbol, getDoctorsData, token, setToken, backendUrl, userData, setUserData, loadUserProfileData, }
+  const value = { doctors, currencySymbol, getDoctorsData, token, setToken, backendUrl, userData, setUserData, loadUserProfileData, loading, profileloading}
 
   useEffect(() => {
     if (backendUrl) getDoctorsData();

@@ -3,10 +3,11 @@ import {assets} from '../assets/assets_frontend/assets'
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ProfileLoading from '../loadingPage/ProfileLoading';
 
 const MyProfile = () => {
   
-  const {token, backendUrl, userData, setUserData, loadUserProfileData,} = useContext(AppContext)
+  const {token, backendUrl, userData, setUserData, loadUserProfileData,profileloading} = useContext(AppContext)
  
   const [isEdit, setIsEdit] = useState(false)
   const [image,setImage]=useState(false)
@@ -36,6 +37,9 @@ const MyProfile = () => {
       console.error(error);
     }
   }
+  if(profileloading) return (
+    <ProfileLoading/>
+  )
 
   return userData && (
     <div className='max-w-lg flex flex-col gap-2 text-sm'>

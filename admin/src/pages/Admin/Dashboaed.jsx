@@ -2,16 +2,21 @@ import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 import { assets } from '../../assets/assets_admin/assets'
 import { AppContext } from '../../context/AppContext'
+import DashBoaedLoading from '../../loadingPage/DashBoaedLoading'
 
 const Dashboaed = () => {
 
-  const { aToken, dashData, getDashData, cancelAppointment } = useContext(AdminContext)
+  const { aToken, dashData, getDashData, cancelAppointment,loadingDash } = useContext(AdminContext)
   const { slotDateFormat } = useContext(AppContext)
   useEffect(() => {
     if (aToken) {
       getDashData()
     }
   }, [aToken])
+
+  if(loadingDash) return (
+    <DashBoaedLoading/>
+  )
 
   return dashData && (
     <div className='m-5'>

@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import DoctorProfileLoading from '../../loadingPage/DoctorProfileLoading'
 
 const DoctorProfile = () => {
-  const { dToken, profileData, getProfileData, setProfileData, backendUrl } = useContext(DoctorContext)
+  const { dToken, profileData, getProfileData, setProfileData, backendUrl,loadingProfile} = useContext(DoctorContext)
   const [isEdit, setIsEdit] = useState(false)
 
   const updateProfile = async () => {
@@ -34,6 +35,10 @@ const DoctorProfile = () => {
       getProfileData()
     }
   }, [dToken])
+
+  if(loadingProfile) return (
+    <DoctorProfileLoading/>
+  )
 
   return profileData && (
     <div>

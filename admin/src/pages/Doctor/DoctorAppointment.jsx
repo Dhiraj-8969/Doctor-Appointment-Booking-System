@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets_admin/assets'
+import AppointmentsLoading from '../../../../frontend/src/loadingPage/AppointmentsLoading'
 
 const DoctorAppointment = () => {
-  const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment } = useContext(DoctorContext)
+  const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment, loadingApomt } = useContext(DoctorContext)
   const { calculateAge, slotDateFormat } = useContext(AppContext)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const DoctorAppointment = () => {
           <p>Action</p>
         </div>
 
-        {
+        { loadingApomt ? <AppointmentsLoading/> :
           appointments.reverse().map((item, index) => (
             <div className='flex flex-wrap justify-between max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 px-6 py-3 border-b border-gray-200 hover:bg-gray-50' key={index}>
               <p className='max-sm:hidden'>{index + 1}</p>

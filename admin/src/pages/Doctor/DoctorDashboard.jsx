@@ -2,15 +2,20 @@ import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { assets } from '../../assets/assets_admin/assets'
 import { AppContext } from '../../context/AppContext'
+import DashBoaedLoading from '../../loadingPage/DashBoaedLoading'
 
 const DoctorDashboard = () => {
-  const { dToken, dashborad, getDashData, completeAppointment,cancelAppointment } = useContext(DoctorContext)
+  const { dToken, dashborad, getDashData, completeAppointment,cancelAppointment,loadingDash} = useContext(DoctorContext)
   const { slotDateFormat } = useContext(AppContext)
   useEffect(() => {
     if (dToken) {
       getDashData()
     }
   }, [dToken])
+
+  if(loadingDash) return (
+      <DashBoaedLoading/>
+    )
 
   return dashborad && (
     <div className='m-5'>

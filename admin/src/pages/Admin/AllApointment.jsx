@@ -2,10 +2,11 @@ import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets_admin/assets'
+import AppointmentsLoading from '../../../../frontend/src/loadingPage/AppointmentsLoading'
 
 const AllApointment = () => {
 
-  const { aToken, getAllAppointments, appointments, cancelAppointment } = useContext(AdminContext)
+  const { aToken, getAllAppointments, appointments, cancelAppointment,loadingApomt } = useContext(AdminContext)
   const { calculateAge, slotDateFormat } = useContext(AppContext)
   useEffect(() => {
     if (aToken) {
@@ -27,7 +28,7 @@ const AllApointment = () => {
           <p>Action</p>
         </div>
 
-        {appointments.map((item, index) => (
+        {loadingApomt ? <AppointmentsLoading/> : appointments.reverse().map((item, index) => (
           <div className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50' key={index}>
             <p className='max-sm:hidden'>{index + 1}</p>
             <div className='flex items-center gap-2'>

@@ -1,14 +1,14 @@
-import React, { useContext,useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import googleLogo from '../assets/google.png'
 
 const Login = () => {
 
-const {token,setToken,backendUrl }=useContext(AppContext)
-const navigate=useNavigate()
-
+  const { token, setToken, backendUrl } = useContext(AppContext)
+  const navigate = useNavigate()
   const [state, setState] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -16,35 +16,39 @@ const navigate=useNavigate()
 
   const onSumbitHandler = async (event) => {
     event.preventDefault()
-    try{
-      if(state === 'Sign Up'){
-        const {data} = await axios.post(backendUrl + '/api/user/register',{name,password,email})
-        if(data.success){
-          localStorage.setItem('token',data.token)
+    try {
+      if (state === 'Sign Up') {
+        const { data } = await axios.post(backendUrl + '/api/user/register', { name, password, email })
+        if (data.success) {
+          localStorage.setItem('token', data.token)
           setToken(data.token)
-        }else{
+        } else {
           toast.error(data.message)
         }
-      }else{
+      } else {
 
-        const {data} = await axios.post(backendUrl + '/api/user/login',{password,email})
-        if(data.success){
-          localStorage.setItem('token',data.token)
+        const { data } = await axios.post(backendUrl + '/api/user/login', { password, email })
+        if (data.success) {
+          localStorage.setItem('token', data.token)
           setToken(data.token)
-        }else{
+        } else {
           toast.error(data.message)
         }
       }
-    }catch(error){
+    } catch (error) {
       toast.error(error.message)
     }
   }
+  const loginWithGoogle = () => {
+    toast.info('Redirecting to Google login...')
+    window.open(backendUrl + '/auth/google', '_self') 
+  }
 
-  useEffect(()=>{
-    if(token){
+  useEffect(() => {
+    if (token) {
       navigate('/')
     }
-  },[token])
+  }, [token])
 
   return (
     <form onSubmit={onSumbitHandler} className='min-h-[80vh] flex items-center'>
@@ -55,7 +59,7 @@ const navigate=useNavigate()
           <p>Full Name</p>
           <input className='border border-zinc-300 rounded w-full p-2 mt-1' type="text" onChange={(e) => setName(e.target.value)} value={name} required />
         </div>}
-        
+
         <div className='w-full'>
           <p>Email</p>
           <input className='border border-zinc-300 rounded w-full p-2 mt-1' type="email" onChange={(e) => setEmail(e.target.value)} value={email} required />
@@ -66,8 +70,12 @@ const navigate=useNavigate()
         </div>
         <button type='submit' className='w-full bg-primary text-white py-2 rounded-md text-base'>{state === 'Sign Up' ? "Create account" : 'Login'}</button>
         {state === 'Sign Up' ?
-        <p>Already have an account? <span onClick={()=>setState('')} className='text-[#5f6fff] underline cursor-pointer'>Login here</span></p> :
-        <p>Create an new account? <span onClick={()=>setState('Sign Up')} className='text-[#5f6fff] underline cursor-pointer'>Click here</span></p>}
+          <p>Already have an account? <span onClick={() => setState('')} className='text-[#5f6fff] underline cursor-pointer'>Login here</span></p> :
+          <p>Create an new account? <span onClick={() => setState('Sign Up')} className='text-[#5f6fff] underline cursor-pointer'>Click here</span></p>}
+
+        <button onClick={loginWithGoogle} variant="outlined" className='w-full border border-zinc-300 py-2 rounded-md text-base'>
+          <img src={googleLogo} alt="Google Logo" className='inline-block mr-2 w-5' />
+          Login with Google</button>
       </div>
     </form>
   )

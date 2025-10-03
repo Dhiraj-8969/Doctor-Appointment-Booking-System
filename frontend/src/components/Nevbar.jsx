@@ -12,6 +12,7 @@ const Nevbar = () => {
   const logout = () => {
     setToken(false)
     localStorage.removeItem('token')
+    navigate('/')
   }
 
   return (
@@ -54,7 +55,7 @@ const Nevbar = () => {
                   <p onClick={logout} className="hover:text-black cursor-pointer">Logout</p>
                 </div>
               </div>
-            </div> : <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light '>Cteate account</button>
+            </div> : <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light '>Login</button>
         }
         <img onClick={() => setshowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
         {/* ------------Mobile Menu----------------- */}

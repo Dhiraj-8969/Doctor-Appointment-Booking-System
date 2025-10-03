@@ -171,6 +171,7 @@ const cancelAppointment = async (req, res) => {
     res.json({ success: false, message: error.message })
   }
 }
+
 const razorpayInstance= new razorpay({
   key_id:process.env.RAZORPAY_KEY_ID,
   key_secret:process.env.RAZORPAY_KEY_SECRET

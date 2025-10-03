@@ -6,6 +6,8 @@ import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoutes.js';
 import doctorRouter from './routes/doctorRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import authRouter from './routes/authRoute.js';
+import './config/googleOauth.js';
 
 const app = express()
 //const db=require('./config/db')
@@ -17,9 +19,10 @@ connectCloudinary()
 app.use(express.json())
 app.use(cors())
 
-app.use('/api/admin',adminRouter)
-app.use('/api/doctor',doctorRouter)
-app.use('/api/user',userRouter)
+app.use('/auth', authRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/doctor', doctorRouter)
+app.use('/api/user', userRouter)
 
 app.get('/api',(req,res)=>{
 res.send('API working')
